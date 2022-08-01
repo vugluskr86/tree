@@ -968,7 +968,8 @@ class Tree<TreeDataType extends DataNode | BasicDataNode = DataNode> extends Rea
         promise
           .then(() => {
             const { loadedKeys: currentLoadedKeys } = this.state;
-            const newLoadedKeys = arrAdd(currentLoadedKeys, key);
+            const newLoadedKeys = arrAdd(this.state.loadedKeys, key);
+            const newLoadingKeys = arrDel(this.state.loadingKeys, key);
 
             // onLoad should trigger before internal setState to avoid `loadData` trigger twice.
             // https://github.com/ant-design/ant-design/issues/12464
@@ -980,8 +981,8 @@ class Tree<TreeDataType extends DataNode | BasicDataNode = DataNode> extends Rea
             this.setUncontrolledState({
               loadedKeys: newLoadedKeys,
             });
-            this.setState(prevState => ({
-              loadingKeys: arrDel(prevState.loadingKeys, key),
+            this.setState(({
+              loadingKeys: newLoadingKeys,
             }));
 
             resolve();
