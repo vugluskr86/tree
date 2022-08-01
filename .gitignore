@@ -25,9 +25,7 @@ package-lock.json
 node_modules
 .cache
 dist
-*.css
 build
-lib
 /coverage
 yarn.lock
 es/
